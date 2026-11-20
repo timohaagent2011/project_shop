@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GameStore{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=4">
+
+</head>
+<body>
+    <header class="site-header">
+        <div class="nav-inner">
+            <a href="{% url 'home' %}" class="logo">🎮 GameStore</a>
+            <a href="{% url 'game_list' %}">Каталог</a>
+            <a href="{% url 'cart_view' %}">
+                Корзина{% if request.session.cart %} ({{ request.session.cart|length }}){% endif %}
+            </a>
+            <a href="{% url 'support' %}">Поддержка</a>
+            <div class="nav-right">
+                {% if user.is_authenticated %}
+                    {% if user.profile.is_developer %}
+                        <a href="{% url 'developer_dashboard' %}">Мои игры</a>
+                        <span>{{ user.username }} (Разработчик)</span>
+                    {% else %}
+                        <span>{{ user.username }}</span>
+                    {% endif %}
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none; border:none; color:#b3b3b3; cursor:pointer; font-size:0.9rem; font-family:inherit; padding:0;">
+                            Выйти
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Вход</a>
+                    <a href="{% url 'register' %}">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        проект — Цифровой магазин игр на Django 
+    </footer>
+</body>
+</html>

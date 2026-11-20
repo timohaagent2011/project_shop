@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}{{ game.title }} — GameStore{% endblock %}
+{% block content %}
+    <div class="game-detail" style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; margin-top: 20px;">
+        {% if game.cover %}
+            <img src="{{ game.cover.url }}" alt="{{ game.title }}" style="max-width: 360px; width: 100%; border-radius: 12px; object-fit: cover;">
+        {% endif %}
+
+        <div style="flex: 1; min-width: 280px;">
+            <h1 style="margin-bottom: 8px;">{{ game.title }}</h1>
+            <p style="color: #9e9e9e; font-size: 0.95rem; margin-bottom: 16px;">
+                👨‍💻 Разработчик: <strong>{{ game.developer.username|default:"GameStore Official" }}</strong>
+            </p>
+
+            <p style="font-size: 1.5rem; font-weight: bold; color: #00e5ff; margin-bottom: 16px;">
+                {{ game.price }} ₽
+            </p>
+
+            <p style="line-height: 1.6; color: #d0d0d0; margin-bottom: 24px;">
+                {{ game.description }}
+            </p>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                {% if user.is_authenticated %}
+                    {% if game.id|stringformat:"s" in request.session.cart %}
+                        <a href="{% url 'cart_view' %}" class="btn" style="background: #00c896; color: #000;">Уже в корзине ✓</a>
+                    {% else %}
+                        <a href="{% url 'cart_add' game.pk %}" class="btn">В корзину</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn">Войдите, чтобы купить</a>
+                {% endif %}
+                <a href="{% url 'game_list' %}" class="btn" style="background: #333;">← Назад в каталог</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

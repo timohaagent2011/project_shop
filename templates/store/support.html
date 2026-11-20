@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Техническая поддержка — GameStore{% endblock %}
+{% block content %}
+    <h1>🛠 Техническая поддержка</h1>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; align-items: start;">
+        <!-- Форма обращения -->
+        <div class="form-card" style="margin: 0; max-width: 100%;">
+            <h2>Написать в поддержку</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form-actions">
+                    <button type="submit" class="btn">Отправить обращение</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Частые вопросы (FAQ) -->
+        <div class="form-card" style="margin: 0; max-width: 100%;">
+            <h2>Частые вопросы (FAQ)</h2>
+            <div style="margin-top: 12px;">
+                <p><strong>❓ Где найти ключ после оплаты?</strong><br>
+                <span style="color: #b3b3b3; font-size: 0.9rem;">Чек и ключ активации автоматически отправляются на почту, указанную при регистрации.</span></p>
+                
+                <p style="margin-top: 12px;"><strong>❓ Как опубликовать свою игру?</strong><br>
+                <span style="color: #b3b3b3; font-size: 0.9rem;">Зарегистрируйтесь с типом аккаунта «Разработчик» и перейдите в раздел «Мои игры» в шапке сайта.</span></p>
+                
+                <p style="margin-top: 12px;"><strong>❓ Как оформить возврат?</strong><br>
+                <span style="color: #b3b3b3; font-size: 0.9rem;">Создайте обращение в форме слева, указав номер заказа из чека.</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- История обращений пользователя -->
+    <div style="margin-top: 32px;">
+        <h2>Мои обращения</h2>
+        {% for ticket in tickets %}
+            <div class="form-card" style="max-width: 100%; margin: 12px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>#{{ ticket.id }} — {{ ticket.subject }}</strong>
+                    <span style="font-size: 0.85rem; padding: 4px 10px; border-radius: 12px; background: rgba(255,255,255,0.1);">
+                        {{ ticket.get_status_display }}
+                    </span>
+                </div>
+                <p style="color: #b3b3b3; margin-top: 8px;">{{ ticket.message }}</p>
+                {% if ticket.admin_reply %}
+                    <div style="margin-top: 12px; padding: 12px; background: rgba(0, 200, 150, 0.1); border-left: 3px solid #00c896; border-radius: 4px;">
+                        <strong>Ответ поддержки:</strong> {{ ticket.admin_reply }}
+                    </div>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p style="color: #b3b3b3; margin-top: 8px;">У вас пока нет обращений в поддержку.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

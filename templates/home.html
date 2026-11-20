@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Главная — GameStore{% endblock %}
+{% block content %}
+    <h1>Добро пожаловать в GameStore</h1>
+    <p>Цифровые игры по лучшим ценам. Быстро, удобно, безопасно.</p>
+
+    <h2>Новинки</h2>
+    <div class="games-grid">
+        {% for game in games %}
+            <div class="game-card">
+                {% if game.cover %}
+                    <img class="cover" src="{{ game.cover.url }}" alt="{{ game.title }}">
+                {% endif %}
+                <h3>{{ game.title }}</h3>
+                <p class="price">{{ game.price }} ₽</p>
+                <a class="btn" href="{% url 'game_detail' game.pk %}">Подробнее</a>
+            </div>
+        {% empty %}
+            <p>Игр пока нет. Добавьте их через <a href="/admin/">админ-панель</a>.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

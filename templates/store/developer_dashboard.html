@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Кабинет разработчика — GameStore{% endblock %}
+{% block content %}
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+        <h1>Мои игры</h1>
+        <a href="{% url 'add_game' %}" class="btn">+ Добавить игру</a>
+    </div>
+    <div class="games-grid">
+        {% for game in games %}
+            <div class="game-card">
+                {% if game.cover %}
+                    <img class="cover" src="{{ game.cover.url }}" alt="{{ game.title }}">
+                {% endif %}
+                <h3>{{ game.title }}</h3>
+                <p class="price">{{ game.price }} ₽</p>
+                <a class="btn" href="{% url 'game_detail' game.pk %}">Открыть</a>
+            </div>
+        {% empty %}
+            <p>Вы ещё не добавили ни одной игры.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

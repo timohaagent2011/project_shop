@@ -1,0 +1,62 @@
+[
+  {
+    "model": "store.game",
+    "pk": 1,
+    "fields": {
+      "title": "Cyberpunk 2077",
+      "description": "Открытый мир, киберпанк и захватывающий сюжет в Найт-Сити. Играйте за наёмника V и решайте судьбу города.",
+      "price": "1999.00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "store.game",
+    "pk": 2,
+    "fields": {
+      "title": "The Witcher 3: Wild Hunt",
+      "description": "Ролевая игра с открытым миром, ставшая легендой. В роли Геральта из Ривии отправляйтесь на поиски Цири.",
+      "price": "1499.00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "store.game",
+    "pk": 3,
+    "fields": {
+      "title": "Elden Ring",
+      "description": "Эпическое фэнтези от FromSoftware и Джорджа Р. Р. Мартина. Исследуйте Междуземье и бросьте вызов полубогам.",
+      "price": "2999.00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "store.game",
+    "pk": 4,
+    "fields": {
+      "title": "Red Dead Redemption 2",
+      "description": "История Артура Моргана и банды Ван дер Линде на закате эпохи Дикого Запада. Невероятная детализация мира.",
+      "price": "2499.00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "store.game",
+    "pk": 5,
+    "fields": {
+      "title": "God of War",
+      "description": "Кратос и его сын Атрей отправляются в опасное путешествие по мирам скандинавской мифологии.",
+      "price": "1799.00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "store.game",
+    "pk": 6,
+    "fields": {
+      "title": "Hollow Knight",
+      "description": "Красивый и сложный метроидвания-платформер в подземном королевстве насекомых Халлоунест.",
+      "price": "499.00",
+      "is_available": true
+    }
+  }
+]

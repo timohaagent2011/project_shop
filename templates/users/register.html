@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация — GameStore{% endblock %}
+{% block content %}
+    <div class="form-card">
+        <h1>Регистрация</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="btn">Зарегистрироваться</button>
+            </div>
+        </form>
+        <p style="text-align:center; margin-top: 16px; font-size: 0.9rem;">
+            Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+        </p>
+    </div>
+{% endblock %}

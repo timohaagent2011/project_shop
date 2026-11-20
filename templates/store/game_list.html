@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Каталог игр — GameStore{% endblock %}
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        <h1 style="margin: 0;">Каталог игр</h1>
+        <form method="get" style="display: flex; gap: 8px;">
+            <input type="text" name="q" value="{{ query }}" placeholder="Поиск по названию..." style="padding: 8px 12px; border-radius: 6px; border: 1px solid #333; background: #1e1e1e; color: #fff; min-width: 240px;">
+            <button type="submit" class="btn">Найти</button>
+            {% if query %}
+                <a href="{% url 'game_list' %}" class="btn" style="background: #333;">Сбросить</a>
+            {% endif %}
+        </form>
+    </div>
+
+    {% if query %}
+        <p style="color: #b3b3b3; margin-bottom: 16px;">Результаты поиска по запросу «{{ query }}»:</p>
+    {% endif %}
+
+    <div class="games-grid">
+        {% for game in games %}
+            <div class="game-card">
+                {% if game.cover %}
+                    <img class="cover" src="{{ game.cover.url }}" alt="{{ game.title }}">
+                {% endif %}
+                <h3>{{ game.title }}</h3>
+                <p style="font-size: 0.8rem; color: #888; margin: 4px 0;">
+                    Разработчик: {{ game.developer.username|default:"GameStore Official" }}
+                </p>
+                <p class="price">{{ game.price }} ₽</p>
+                <a class="btn" href="{% url 'game_detail' game.pk %}">Подробнее</a>
+            </div>
+        {% empty %}
+            <p>Игры по вашему запросу не найдены.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

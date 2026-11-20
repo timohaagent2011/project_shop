@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Оплата — GameStore{% endblock %}
+{% block content %}
+    <div class="form-card" style="max-width: 520px;">
+        <h1>Оплата заказа #{{ order.id }}</h1>
+        <p style="margin-bottom: 6px; color: #94a3b8;">Сумма к оплате:</p>
+        <p style="font-size: 1.6rem; font-weight: 800; color: #00d4ff; margin-bottom: 16px;">{{ order.total }} ₽</p>
+        <p style="color: #cbd5e1; margin-bottom: 20px; font-size: 0.95rem;">
+            Выберите удобный способ оплаты. После нажатия кнопки вы получите электронный чек и ключи активации на почту.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                <label style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #12151e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor: pointer; color: #f1f5f9;">
+                    <input type="radio" name="payment_method" value="card" checked style="accent-color: #00d4ff; width: 18px; height: 18px;">
+                    <span>💳 Банковская карта</span>
+                </label>
+
+                <label style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #12151e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor: pointer; color: #f1f5f9;">
+                    <input type="radio" name="payment_method" value="sbp" style="accent-color: #00d4ff; width: 18px; height: 18px;">
+                    <span>⚡ СБП (Система быстрых платежей)</span>
+                </label>
+
+                <label style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #12151e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor: pointer; color: #f1f5f9;">
+                    <input type="radio" name="payment_method" value="yoomoney" style="accent-color: #00d4ff; width: 18px; height: 18px;">
+                    <span>💰 ЮMoney</span>
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Оплатить {{ order.total }} ₽</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
